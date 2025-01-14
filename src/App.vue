@@ -48,6 +48,17 @@ a {
   justify-content: center;
 }
 
+.sections {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.selected {
+  text-decoration: underline;
+}
+
 .title {
   font-family: FuturamaTitle;
   font-size: 4em;
@@ -106,8 +117,21 @@ a {
         </div>
       </div>
     </article>
-    <article v-if="characters">
-      <h1 class="title">Characters</h1>
+    <div class="sections">
+      <v-btn
+        :class="`title ${section === 'characters' && 'selected'}`"
+        @click="toggleSection"
+      >
+        Characters
+      </v-btn>
+      <v-btn
+        :class="`title ${section === 'episodes' && 'selected'}`"
+        @click="toggleSection"
+      >
+        Episodes
+      </v-btn>
+    </div>
+    <article v-if="section === 'characters' && characters">
       <div class="list">
         <div v-for="character in characters" class="info list-item">
           <div class="character-image-container">
@@ -135,8 +159,7 @@ a {
         </div>
       </div>
     </article>
-    <article v-if="episodes">
-      <h1 class="title">Episodes</h1>
+    <article v-if="section === 'episodes' && episodes">
       <div class="list scrollable">
         <div v-for="episode in episodes" class="info list-item">
           {{ episode.title }}
@@ -157,6 +180,7 @@ import { onMounted, watch, ref } from "vue";
 const info = ref(null);
 const characters = ref(null);
 const episodes = ref(null);
+const section = ref("characters");
 
 onMounted(fetchData);
 
@@ -181,5 +205,9 @@ async function fetchData() {
     console.log("error");
     // TODO: handle error
   }
+}
+
+function toggleSection() {
+  section.value = section.value === "characters" ? "episodes" : "characters";
 }
 </script>
