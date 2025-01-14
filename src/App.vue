@@ -1,21 +1,72 @@
-<style></style>
+<style>
+@font-face {
+  font-family: FuturamaTitle;
+  src: url(assets/fr-title.ttf);
+}
+@font-face {
+  font-family: FuturamaText;
+  src: url(assets/fr-bold.ttf);
+}
+
+html,
+body {
+  background-color: #008ea0;
+  color: white;
+}
+
+a {
+  color: #ade2d0;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.info {
+  font-family: FuturamaText;
+  font-size: 1em;
+  text-align: justify;
+  padding: 10px;
+  background-color: #1a5354;
+  border-radius: 5px;
+}
+
+.extra-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.years {
+  text-align: center;
+}
+
+.creators {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+</style>
 
 <template>
-  <div class="container">
+  <main class="container">
     <div class="title">
       <img src="./assets/logo.png" />
     </div>
-    <div v-if="info" class="info">
+    <article v-if="info" class="info">
       {{ info.synopsis }}
-      {{ info.yearsAired }}
       <div class="extra-info">
-        Created By:
-        <div v-for="creator in info.creators">
-          <a :href="creator.url" target="_blank">{{ creator.name }}</a>
+        <div class="years">{{ info.yearsAired }}</div>
+        <div class="creators">
+          Created By:
+          <div v-for="creator in info.creators">
+            <a :href="creator.url" target="_blank">{{ creator.name }}</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div v-if="characters">
+    </article>
+    <article v-if="characters">
       <div v-for="character in characters">
         <span>
           {{ character.name?.first }}
@@ -34,8 +85,8 @@
           ]
         }}
       </div>
-    </div>
-    <div v-if="episodes">
+    </article>
+    <article v-if="episodes">
       <div v-for="episode in episodes">
         {{ episode.title }}
         {{ episode.desc }}
@@ -43,8 +94,8 @@
         {{ episode.originalAirDate }}
         {{ episode.writers }}
       </div>
-    </div>
-  </div>
+    </article>
+  </main>
 </template>
 
 <script setup>
