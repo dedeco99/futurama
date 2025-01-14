@@ -18,7 +18,7 @@ a {
   color: #ade2d0;
 }
 
-.title {
+.title-image {
   display: flex;
   justify-content: center;
 }
@@ -26,10 +26,10 @@ a {
 .info {
   font-family: FuturamaText;
   font-size: 1em;
-  text-align: justify;
   padding: 10px;
   background-color: #1a5354;
   border-radius: 5px;
+  margin: 10px;
 }
 
 .extra-info {
@@ -47,11 +47,41 @@ a {
   gap: 10px;
   justify-content: center;
 }
+
+.title {
+  font-family: FuturamaTitle;
+  font-size: 4em;
+  color: #ff6348;
+  text-align: center;
+}
+
+.characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.character {
+  width: 350px;
+}
+
+.character-image-container {
+  text-align: center;
+}
+
+.character-image {
+  height: 200px;
+  max-width: 300px;
+}
+
+.character-quote {
+  font-size: 0.75em;
+}
 </style>
 
 <template>
   <main class="container">
-    <div class="title">
+    <div class="title-image">
       <img src="./assets/logo.png" />
     </div>
     <article v-if="info" class="info">
@@ -67,23 +97,32 @@ a {
       </div>
     </article>
     <article v-if="characters">
-      <div v-for="character in characters">
-        <span>
-          {{ character.name?.first }}
-          {{ character.name?.middle }}
-          {{ character.name?.last }}
-        </span>
-        {{ character.age }}
-        <img :src="character.images?.main" />
-        {{ character.gender }}
-        {{ character.species }}
-        {{ character.homePlanet }}
-        {{ character.occupation }}
-        {{
-          character.sayings?.[
-            Math.floor(Math.random() * character.sayings?.length)
-          ]
-        }}
+      <h1 class="title">Characters</h1>
+      <div class="characters">
+        <div v-for="character in characters" class="character info">
+          <div class="character-image-container">
+            <img class="character-image" :src="character.images?.main" />
+          </div>
+          <div>
+            Name:
+            <span>
+              {{ character.name?.first }}
+              {{ character.name?.middle }}
+              {{ character.name?.last }} </span
+            ><br />
+            Age: {{ character.age }}<br />
+            Species: {{ character.species }} ({{ character.gender }})<br />
+            Home Planet: {{ character.homePlanet }}<br />
+            Occupation: {{ character.occupation }}<br />
+            <i class="character-quote">
+              "{{
+                character.sayings?.[
+                  Math.floor(Math.random() * character.sayings?.length)
+                ]
+              }}"
+            </i>
+          </div>
+        </div>
       </div>
     </article>
     <article v-if="episodes">
