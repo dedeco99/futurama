@@ -18,9 +18,13 @@ a {
   color: #ade2d0;
 }
 
-.title-image {
+.title-image-container {
   display: flex;
   justify-content: center;
+}
+
+.title-image {
+  max-width: 100%;
 }
 
 .info {
@@ -51,6 +55,7 @@ a {
 .sections {
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   padding: 20px;
   cursor: pointer;
 }
@@ -84,6 +89,7 @@ a {
   border-radius: 5px;
   padding: 10px;
   margin-top: 10px;
+  flex-grow: 1;
 }
 
 .character-image-container {
@@ -102,8 +108,8 @@ a {
 
 <template>
   <main class="container">
-    <div class="title-image">
-      <img src="./assets/logo.png" />
+    <div class="title-image-container">
+      <img class="title-image" src="./assets/logo.png" />
     </div>
     <article v-if="info" class="info">
       {{ info.synopsis }}
