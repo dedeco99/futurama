@@ -51,18 +51,28 @@ a {
 .title {
   font-family: FuturamaTitle;
   font-size: 4em;
-  color: #ff6348;
+  color: #ade2d0;
   text-align: center;
 }
 
-.characters {
+.list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.character {
+.list-item {
   width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inside-info {
+  border: 3px solid #5a9599;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .character-image-container {
@@ -98,12 +108,12 @@ a {
     </article>
     <article v-if="characters">
       <h1 class="title">Characters</h1>
-      <div class="characters">
-        <div v-for="character in characters" class="character info">
+      <div class="list">
+        <div v-for="character in characters" class="info list-item">
           <div class="character-image-container">
             <img class="character-image" :src="character.images?.main" />
           </div>
-          <div>
+          <div class="inside-info">
             Name:
             <span>
               {{ character.name?.first }}
@@ -126,12 +136,16 @@ a {
       </div>
     </article>
     <article v-if="episodes">
-      <div v-for="episode in episodes">
-        {{ episode.title }}
-        {{ episode.desc }}
-        {{ episode.number }}
-        {{ episode.originalAirDate }}
-        {{ episode.writers }}
+      <h1 class="title">Episodes</h1>
+      <div class="list scrollable">
+        <div v-for="episode in episodes" class="info list-item">
+          {{ episode.title }}
+          <div class="inside-info">
+            {{ episode.desc }}<br /><br />
+            Writers: {{ episode.writers }}<br />
+            {{ episode.originalAirDate }}
+          </div>
+        </div>
       </div>
     </article>
   </main>
